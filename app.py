@@ -1,6 +1,5 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from flask_migrate import Migrate
 from flask_bcrypt import Bcrypt
 
 db = SQLAlchemy()
@@ -11,6 +10,8 @@ def create_app():
 
     app.secret_key = 'SECRET'
     
+    app.config['SECRET_KEY'] = 'SECRET'
+
     db.init_app(app)
  
     bcrypt = Bcrypt(app)

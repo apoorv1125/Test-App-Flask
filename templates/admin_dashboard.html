@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block title %} Dashboard {% endblock %}
+
+{% block content %}
+    
+    <h3> Hello, {{ current_user.name }}</h3>
+    
+    <a href = "{{ url_for('index')}}">home</a>
+    
+    <a href = "{{ url_for('logout')}}">logout</a>
+
+    <h1 style="text-align: start">Departments</h1>
+    
+    <a href = "{{ url_for('add_department')}}">Add Department</a><br><br>
+
+    {% if departments|length < 1 %}    
+
+    <p style="text-align: center">There are no departments. Create one below!</p>
+
+    {% else %}
+
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Doctor</th>
+            <th>Delete</th>
+            <th>Update</th>
+        </tr>
+
+        {% for dept in departments %}
+        <tr>
+            <td>{{ dept.uid }}</td>
+            <td>{{ dept.name }}</td>
+            <td>{{ dept.doctor.name if dept.doctor else 'None' }}</td>
+            <td><a href="/delete/department/{{dept.uid}}">Delete</a><br></td>
+            <td><a href="/update/department/{{dept.uid}}">Update</a><br></td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+
+    <br>
+    <br>
+    <h1 style="text-align: start">Doctors</h1>
+
+    {% if doctors|length < 1 %}
+
+    <p style="text-align: center">There are no doctors!</p>
+
+    {% else %}
+
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Delete</th>
+        </tr>
+
+        {% for doc in doctors %}
+        <tr>
+            <td>{{ doc.uid }}</td>
+            <td>{{ doc.name }}</td>
+            <td><a href="/delete/doctor/{{doc.uid}}">Delete</a><br></td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+{% endblock %}

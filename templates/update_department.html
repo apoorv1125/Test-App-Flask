@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %} Dashboard {% endblock %}
+
+{% block content %}
+    
+    <h1>Update Department</h1>
+    <form action="{{ url_for('update_department', id=department.uid) }}" method="POST">
+        <label for="department_name">Department Name</label><br>
+        <input type="text" name="department_name" id="department_name" value ="{{department.name}}" required><br>
+        
+        <label for="doctor">Assign Doctor</label><br>
+        <select name="doctor_id">
+            {% for doc in doctors %}
+                <option value="{{ doc.uid }}"
+                    {% if department.doctor_id == doc.uid %}selected{% endif %}>
+                    {{ doc.name }}
+                </option>
+            {% endfor %}
+        </select><br>
+       
+        <input type="submit" value="Update Department"><br>
+    </form>
+
+{% endblock %}

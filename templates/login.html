@@ -6,8 +6,12 @@
 <html lang="en">
     <h1>Login</h1>
     <form action="{{ url_for('login') }}" method="POST">
+        <label for="username">Username</label><br>
         <input type="text" name="username" id="username" required = "required"><br>
+        
+        <label for="password">Password</label><br>
         <input type="text" name="password" id="password" required = "required"><br>
+        
         <input type="submit" value="Login User"><br>
     </form>
 </html>
