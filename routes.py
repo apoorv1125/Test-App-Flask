@@ -46,7 +46,11 @@ def register_route(app, db, bcrypt):
             if not token:
                 return render_template('signup.html')
             else:
-                return redirect(url_for('dashboard'))
+                try:
+                    jwt.decode(token, app.config['SECRET_KEY'], algorithms=["HS256"])
+                    return redirect(url_for('dashboard'))
+                except:
+                    return render_template('signup.html')
         elif request.method == 'POST':
             username = request.form.get('username')
             password = request.form.get('password')
@@ -72,7 +76,12 @@ def register_route(app, db, bcrypt):
             if not token:
                 return render_template('login.html')
             else:
-                return redirect(url_for('dashboard'))
+                try:
+                    jwt.decode(token, app.config['SECRET_KEY'], algorithms=["HS256"])
+                    return redirect(url_for('dashboard'))
+                except:
+                    return render_template('login.html')
+                
         elif request.method == 'POST':
             username = request.form.get('username')
             password = request.form.get('password')
