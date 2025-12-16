@@ -2,9 +2,10 @@ from flask import render_template, request, redirect, url_for, jsonify, make_res
 import jwt
 from flask_login import login_user, logout_user, current_user, login_required, LoginManager
 from functools import wraps
+from sqlalchemy import func
 from datetime import datetime, timezone, timedelta
 
-from models import User, Department, Availability, Appointment
+from models import User, Department, Availability, Appointment, UserRole
 
 # def register_route(app, db):
 #     @app.route('/', methods=['POST', 'GET'])
@@ -54,20 +55,25 @@ def register_route(app, db, bcrypt):
         elif request.method == 'POST':
             username = request.form.get('username')
             password = request.form.get('password')
-            role = request.form.get('role')
+            role = UserRole(request.form.get('role')) # (request.form.get('role'))
 
             hashed_password = bcrypt.generate_password_hash(password)
 
-            existing_user = User.query.filter_by(name = username).first()
+            existing_user = User.query.filter(                            
+                func.lower(User.name) == username.lower()
+            ).first()
             
             if existing_user:
                 return jsonify({'message': 'User already exists. Please login.'}), 400
 
             user = User(name = username, password = hashed_password, role = role)
 
-            db.session.add(user)
-            db.session.commit()
-            return redirect(url_for('login'))
+            try:
+                db.session.add(user)
+                db.session.commit()
+                return redirect(url_for('login'))
+            except:
+                return 'There was a problem with that task'
 
     @app.route('/login ', methods=['POST', 'GET'])
     def login():
@@ -142,9 +148,9 @@ def register_route(app, db, bcrypt):
     @app.route('/dashboard')
     @token_required
     def dashboard(current_user):
-        if current_user.role == 'admin':
+        if current_user.role == UserRole.ADMIN:
             departments = Department.query.all()
-            doctors = User.query.filter(User.role == 'doctor').all()
+            doctors = User.query.filter(User.role == UserRole.DOCTOR).all()
             appointments = Appointment.query.filter().all()
 
             return render_template(
@@ -154,7 +160,7 @@ def register_route(app, db, bcrypt):
                 doctors = doctors,
                 appointments = appointments
             )
-        elif current_user.role == 'doctor':
+        elif current_user.role == UserRole.DOCTOR:
             doctor = User.query.filter(User.uid == current_user.uid).first()
             available_slots = Availability.query.filter(Availability.doctor_id == current_user.uid).all()
             appointments = Appointment.query.filter(Appointment.doctor_id == current_user.uid).all()
@@ -179,14 +185,16 @@ def register_route(app, db, bcrypt):
     @app.route('/add_department', methods=['POST', 'GET'])
     def add_department():
         if request.method == 'GET':
-            doctors = User.query.filter_by(role = 'doctor').all()
+            doctors = User.query.filter_by(role = UserRole.DOCTOR).all()
             return render_template('add_department.html', doctors = doctors)
         elif request.method == 'POST':
             name = request.form['department_name']
             doctor_id = request.form['doctor_id']
 
-            existing_department = Department.query.filter_by(name = name).first()
-            
+            existing_department = Department.query.filter_by(
+                func.lower(Department.name) == name.lower()
+            ).first()
+
             if existing_department:
                 return jsonify({'message': 'Department already exists. Please try with different name.'}), 400
 
@@ -238,7 +246,7 @@ def register_route(app, db, bcrypt):
             except:
                 return 'There was a problem deleting that task'
         else:
-            doctors = User.query.filter_by(role = 'doctor').all()
+            doctors = User.query.filter_by(role = UserRole.DOCTOR).all()
             return render_template('update_department.html', department=department, doctors = doctors)
 
     # Doctors Availability
@@ -293,7 +301,7 @@ def register_route(app, db, bcrypt):
     @app.route('/add_appointment/<int:member_id>', methods=['POST', 'GET'])
     def add_appointment(member_id):
         if request.method == 'GET':
-            doctors = User.query.filter(User.role == 'doctor').all()
+            doctors = User.query.filter(User.role == UserRole.DOCTOR).all()
             return render_template('add_appointment.html', member_id = member_id, doctors = doctors)
         elif request.method == 'POST':
             date = request.form['date']
