@@ -1,12 +1,12 @@
-from app import db
+from ...extension import db
 
 class Appointment(db.Model):
     __tablename__ = 'appointment'
 
     uid = db.Column(db.Integer, primary_key = True)
     
-    doctor_id = db.Column(db.Integer, db.ForeignKey('user.uid'))
-    member_id = db.Column(db.Integer, db.ForeignKey('user.uid'), nullable = False)
+    doctor_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    member_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable = False)
     
     date = db.Column(db.Date, nullable = False)
     start_time = db.Column(db.Time, nullable = False)

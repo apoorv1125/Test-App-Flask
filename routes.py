@@ -164,23 +164,23 @@ def register_route(app, db, bcrypt):
                 appointments = appointments
             )
         elif current_user.role == UserRole.DOCTOR:
-            doctor = User.query.filter(User.uid == current_user.uid).first()
+            availability = User.query.filter(User.uid == current_user.uid).first()
             available_slots = Availability.query.filter(Availability.doctor_id == current_user.uid).all()
             appointments = Appointment.query.filter(Appointment.doctor_id == current_user.uid).all()
 
             return render_template(
                 'doctor_dashboard.html', 
-                doctor = doctor,
+                availability = availability,
                 available_slots = available_slots,
                 appointments = appointments,
             )
         else:
-            member = User.query.filter(User.uid == current_user.uid).first()
+            appointment = User.query.filter(User.uid == current_user.uid).first()
             appointments = Appointment.query.filter(Appointment.member_id == current_user.uid).all()
 
             return render_template(
                 'member_dashboard.html', 
-                member = member,
+                appointment = appointment,
                 appointments = appointments
             )
     
@@ -340,7 +340,7 @@ def register_route(app, db, bcrypt):
                     break
 
             if not fits_in_availability:
-                return f"Appointment time {start_time_obj}-{end_time_obj} is outside doctor availability", 400
+                return f"Appointment time {start_time_obj}-{end_time_obj} is outside availability availability", 400
 
             appointment = Appointment(
                 date = date_obj,

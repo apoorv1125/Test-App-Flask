@@ -1,11 +1,11 @@
-from app import db
+from ...extension import db
 
 class Availability(db.Model):
     __tablename__ = 'availability'
 
     uid = db.Column(db.Integer, primary_key=True)
     
-    doctor_id = db.Column(db.Integer, db.ForeignKey('user.uid'))
+    doctor_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     doctor = db.relationship('User', foreign_keys=[doctor_id])
 
     date = db.Column(db.Date, nullable=False)
