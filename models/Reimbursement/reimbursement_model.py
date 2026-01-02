@@ -1,4 +1,4 @@
-from ...extension import db
+from extension import db
 import enum
 
 class ClaimStatus(enum.Enum):

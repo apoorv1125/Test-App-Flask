@@ -1,4 +1,4 @@
-from ..repository.appointment.AppointmentRepo import AppointmentRepo
+from repository.appointment.AppointmentRepo import AppointmentRepo
 
 def book_appointment_service(dataModel):
     dataModel = AppointmentRepo().book_appointment(dataModel)

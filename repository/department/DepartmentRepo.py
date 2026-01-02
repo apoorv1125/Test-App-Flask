@@ -1,9 +1,9 @@
-from ...models.Department.department_model import Department
+from models.Department.department_model import Department
 # from app.datalayer.entities.Doctor import Doctor
 # from app.datalayer.entities.DoctorAvailability import DoctorAvailability
-from ...Exceptions import (ActionNotAllowedException, AlreadyExistsException)
+from Exceptions import (ActionNotAllowedException, AlreadyExistsException)
 from .DepartmentModel import DepartmentModel
-from ...extension import db
+from extension import db
 from sqlalchemy import func
 
 class DepartmentsRepo:

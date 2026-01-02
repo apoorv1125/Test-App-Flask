@@ -1,12 +1,12 @@
 from flask_jwt_extended import jwt_required
 from flask import Blueprint, request, jsonify
 
-from ...Exceptions import ActionNotAllowedException, AlreadyExistsException
-from ...services.admin_services import create_department_service, update_department_service, delete_department_service, departments_list_service, appointment_all_list_service, availability_all_list_service
-from ...repository.department.DepartmentModel import DepartmentModel
-from ...utils import roles_required
-from ...schema.department.departmentSchema import DepartmentSchema
-from ...models.User.user_model import UserRole
+from Exceptions import ActionNotAllowedException, AlreadyExistsException
+from services.admin_services import create_department_service, update_department_service, delete_department_service, departments_list_service, appointment_all_list_service, availability_all_list_service
+from repository.department.DepartmentModel import DepartmentModel
+from utils import roles_required
+from schema.department.departmentSchema import DepartmentSchema
+from models.User.user_model import UserRole
 
 admin_bp = Blueprint("admin", __name__)
 

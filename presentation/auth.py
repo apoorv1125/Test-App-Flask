@@ -1,9 +1,9 @@
 from flask import Blueprint, request, jsonify
 
-from ..schema.user.UserSchema import RegisterSchema
-from ..schema.user.UserSchema import LoginSchema
-from ..services.auth_services import register_user, authenticate_user
-from ..models.User.user_model import UserRole
+from schema.user.UserSchema import RegisterSchema
+from schema.user.UserSchema import LoginSchema
+from services.auth_services import register_user, authenticate_user
+from models.User.user_model import UserRole
 
 # Creates the blueprint for all the endpoint related to the user authentication
 auth_bp = Blueprint("auth", __name__)

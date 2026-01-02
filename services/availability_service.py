@@ -1,10 +1,4 @@
-from ..repository.availability.AvailabilityRepo import AvailabilityRepo
-from ..repository.user.UserRepo import UserRepo
-from ..Exceptions import (
-    AccessDeniedException,
-    ResourceNotFoundException,
-)
-from ..models.Department.department_model import Department
+from repository.availability.AvailabilityRepo import AvailabilityRepo
 
 def save_availability_service(dataModel):
     dataModel = AvailabilityRepo().save_availability(dataModel)

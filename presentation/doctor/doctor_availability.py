@@ -1,14 +1,14 @@
 from flask_jwt_extended import jwt_required
 
-from ...repository.availability.AvailabilityModel import AvailabilityModel
-from ...Exceptions import ActionNotAllowedException, AlreadyExistsException
-from ...services.availability_service import save_availability_service, delete_availability_service
-from ...utils import roles_required
+from repository.availability.AvailabilityModel import AvailabilityModel
+from Exceptions import ActionNotAllowedException, AlreadyExistsException
+from services.availability_service import save_availability_service, delete_availability_service
+from utils import roles_required
 
 from flask import Blueprint, request, jsonify
-from ...schema.availability.AvailabilitySchema import AvailabilitySchema
+from schema.availability.AvailabilitySchema import AvailabilitySchema
 
-from ...models.User.user_model import UserRole
+from models.User.user_model import UserRole
 
 doctor_bp = Blueprint("doctor", __name__)
 

@@ -1,12 +1,12 @@
 from flask_jwt_extended import jwt_required, get_jwt_identity
 
-from ..Exceptions import ActionNotAllowedException, AlreadyExistsException
-from ..services.admin_services import departments_list_service
+from Exceptions import ActionNotAllowedException, AlreadyExistsException
+from services.admin_services import departments_list_service
 
 from flask import Blueprint, jsonify
-from ..models.User.user_model import UserRole
+from models.User.user_model import UserRole
 
-from ..utils import roles_required
+from utils import roles_required
 
 department_bp = Blueprint("department", __name__)
 

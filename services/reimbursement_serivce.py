@@ -1,4 +1,4 @@
-from ..repository.reimbursement.ReimbursementRepo import ReimbursementRepo
+from repository.reimbursement.ReimbursementRepo import ReimbursementRepo
 
 def create_claim(dataModel):
     return ReimbursementRepo().create_claim(dataModel)

@@ -1,32 +1,30 @@
-FROM python:3.11-slim
+FROM python:3.10-slim
 
-# Environment
-ENV PYTHONDONTWRITEBYTECODE=1 \
-    PYTHONUNBUFFERED=1 \
-    POETRY_VERSION=1.8.3
-
-WORKDIR /app
-
-# Install system deps (optional but safe)
-RUN apt-get update && apt-get install -y \
-    curl \
+# Install system deps
+RUN apt-get update && apt-get install -y curl \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Poetry
+ENV POETRY_VERSION=1.7.1
 RUN pip install "poetry==$POETRY_VERSION"
 
-# Copy Poetry files first (for caching)
-COPY pyproject.toml poetry.lock* /app/
+# Disable virtualenv creation (important!)
+ENV POETRY_VIRTUALENVS_CREATE=false
 
-# Configure Poetry for containers
-RUN poetry config virtualenvs.create false \
-    && poetry install --no-interaction --no-ansi --only main
+WORKDIR /app
 
-# Copy application code
+# Copy dependency files first (for Docker cache)
+COPY pyproject.toml poetry.lock* ./
+
+# Install deps (including gunicorn)
+RUN poetry install --no-interaction --no-ansi --only main
+
+# Copy app code
 COPY . .
 
 # Expose port
 EXPOSE 5000
 
-# Run with Gunicorn
-CMD ["gunicorn", "-w", "4", "-b", "0.0.0.0:5000", "app.main:app"]
+# Run with gunicorn
+# CMD ["gunicorn", "-b", "0.0.0.0:5000", "app:app"]
+CMD ["python", "run.py"]

@@ -1,7 +1,7 @@
-from ...models.Reimbursement.reimbursement_model import Reimbursement
-from ...Exceptions import (ActionNotAllowedException, AlreadyExistsException)
+from models.Reimbursement.reimbursement_model import Reimbursement
+from Exceptions import (ActionNotAllowedException, AlreadyExistsException)
 from .ReimbursementModel import ReimbursementModel
-from ...extension import db
+from extension import db
 
 class ReimbursementRepo:
     def __init__(self) -> None:

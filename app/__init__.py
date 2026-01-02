@@ -1,12 +1,12 @@
 from flask import Flask
 from flask_migrate import Migrate
-from .extension import db, jwt
-from .presentation.auth import auth_bp
-from .presentation.admin.admin_department import admin_bp
-from .presentation.doctor.doctor_availability import doctor_bp
-from .presentation.member.member_appointment import member_bp
-from .presentation.department import department_bp
-from .presentation.reimbursement import reimbursement_bp
+from extension import db, jwt
+from presentation.auth import auth_bp
+from presentation.admin.admin_department import admin_bp
+from presentation.doctor.doctor_availability import doctor_bp
+from presentation.member.member_appointment import member_bp
+from presentation.department import department_bp
+from presentation.reimbursement import reimbursement_bp
 
 def create_app():
     app = Flask(__name__, template_folder='templates')

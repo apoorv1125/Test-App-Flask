@@ -1,16 +1,16 @@
 #%%
 from flask_jwt_extended import jwt_required
 
-from ...repository.appointment.AppointmentModel import AppointmentModel
-from ...Exceptions import ActionNotAllowedException, AlreadyExistsException, NoAvailabilityException
-from ...services.appointment_service import book_appointment_service, appointment_list_service, delete_appointment_service
-from ...services.availability_service import availability_list_service
-from ...utils import roles_required
+from repository.appointment.AppointmentModel import AppointmentModel
+from Exceptions import ActionNotAllowedException, AlreadyExistsException, NoAvailabilityException
+from services.appointment_service import book_appointment_service, appointment_list_service, delete_appointment_service
+from services.availability_service import availability_list_service
+from utils import roles_required
 
 from flask import Blueprint, request, jsonify
-from ...schema.appointment.AppointmentSchema import AppointmentSchema
+from schema.appointment.AppointmentSchema import AppointmentSchema
 
-from ...models.User.user_model import UserRole
+from models.User.user_model import UserRole
 
 member_bp = Blueprint("member", __name__)
 

@@ -1,9 +1,8 @@
-from ..repository.department.DepartmentRepo import DepartmentsRepo
-from ..repository.availability.AvailabilityRepo import AvailabilityRepo
-from ..repository.appointment.AppointmentRepo import AppointmentRepo
-from ..repository.reimbursement.ReimbursementRepo import ReimbursementRepo
+from repository.department.DepartmentRepo import DepartmentsRepo
+from repository.availability.AvailabilityRepo import AvailabilityRepo
+from repository.appointment.AppointmentRepo import AppointmentRepo
 
-from ..Exceptions import (ResourceNotFoundException)
+from Exceptions import (ResourceNotFoundException)
 
 # Department
 def create_department_service(dataModel):

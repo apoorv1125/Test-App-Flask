@@ -1,4 +1,4 @@
-from ...extension import db
+from extension import db
 
 class Appointment(db.Model):
     __tablename__ = 'appointment'

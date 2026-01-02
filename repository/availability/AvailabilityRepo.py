@@ -1,7 +1,7 @@
-from ...models.Availability.availability_model import Availability
-from ...Exceptions import (ActionNotAllowedException, AlreadyExistsException)
+from models.Availability.availability_model import Availability
+from Exceptions import (ActionNotAllowedException, AlreadyExistsException)
 from .AvailabilityModel import AvailabilityModel
-from ...extension import db
+from extension import db
 from datetime import datetime
 
 class AvailabilityRepo:

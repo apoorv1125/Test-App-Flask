@@ -1,9 +1,9 @@
-from ...models.Appointment.appointment_model import Appointment
-from ...models.Availability.availability_model import Availability
+from models.Appointment.appointment_model import Appointment
+from models.Availability.availability_model import Availability
 
-from ...Exceptions import (NoAvailabilityException, AlreadyExistsException, ActionNotAllowedException)
+from Exceptions import (NoAvailabilityException, AlreadyExistsException, ActionNotAllowedException)
 from .AppointmentModel import AppointmentModel
-from ...extension import db
+from extension import db
 from datetime import datetime
 
 class AppointmentRepo:

@@ -1,8 +1,8 @@
 # from models.User.user_model import User
 # from models.User.user_model import UserRole
-from ...models.User.user_model import User
+from models.User.user_model import User
 from .UserRepoModel import UserRepoModel
-from ...extension import db
+from extension import db
 
 class UserRepo:
     def __init__(self) -> None:

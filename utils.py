@@ -2,7 +2,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from functools import wraps
 from flask_jwt_extended import verify_jwt_in_request, get_jwt
 from flask import abort
-from .models.User.user_model import UserRole
+from models.User.user_model import UserRole
 
 def hash_password(password: str) -> str:
     return generate_password_hash(password)
